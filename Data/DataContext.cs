@@ -18,10 +18,13 @@ namespace EntityFNotes.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public DataContext(IConfiguration configuration)
+        public DataContext()
         {
-            _configuration = configuration;
-            Console.WriteLine(_configuration.GetConnectionString("DB"));
+            // ConfigurationBuilder serve para criar configurações para o aplicativo.
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName) // Define o diretório base para a busca de arquivos da configuração.
+                .AddJsonFile("appsettings.json") // Adiciona o .json como fonte de configuração.
+                .Build(); // Constrói a instância de configuração final.
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,7 +36,7 @@ namespace EntityFNotes.Data
         {
             modelBuilder.ApplyConfiguration(new BrandMap());
             modelBuilder.ApplyConfiguration(new CategoryMap());
-            modelBuilder.ApplyConfiguration(new ProductMap());
+            modelBuilder.ApplyConfiguration(new BrandMap());
         }
     }
 }

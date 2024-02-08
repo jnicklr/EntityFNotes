@@ -40,8 +40,8 @@ namespace EntityFNotes.Data.Mapping
             builder.Property(x => x.Price)
                 .IsRequired()
                 .HasColumnName("Price")
-                .HasColumnType("DECIMAL(10, 2)")
-                .HasMaxLength(100);
+                .HasColumnType("DECIMAL")
+                .HasPrecision(10, 2);
 
             builder.Property(x => x.CreationDate)
                 .IsRequired()
